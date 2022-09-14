@@ -1,8 +1,11 @@
 
 .section{
     /* border:2px solid black; */
-    margin: 0 20%;
+    margin:0 25%;
 }
+/* .option{
+    /* border:2px solid black 
+} */
 .value{
     border-bottom:1px solid black;
 }
@@ -13,8 +16,7 @@ input{
 #title{
     position: relative;
     top:-10px;
-    /* font-size:1.2rem */
-    font-size: 0.9rem;
+    font-size:1.2rem
 }
 
 .active{
@@ -65,15 +67,14 @@ input{
     display:block;
     position: absolute;
     margin-top:-10px;
-    /* background-color: rgb(204, 202, 202); */
-    background-color: aqua;
+    background-color: rgb(204, 202, 202);
     padding:15px;
     border-radius:10px;
 }
 
 .contentdisplay{
     margin:auto;
-    width:70%;
+    width:90%;
     height:60vh;
     overflow-y:auto;
     background-color: rgb(255, 255, 255);
@@ -82,7 +83,16 @@ input{
 .contenthead h4{
     font-size:1.2rem;
 }
-
+.searchdiv{
+    display: flex;
+}
+#searchinput{
+    display: none;
+}
+#crossicon{
+    display: none;
+    font-size: 2.8rem;
+}
 .output{
     height:50%;
 }
@@ -117,7 +127,8 @@ input[type="checkbox"]{
 }
 #arrayoutput{
     position: relative;
-    /* top:-25px; */
+    /* top:-20px; */
+    /* bottom:20; */
     /* left:40px; */
     /* width:50%; */
     /* border-bottom:1px solid black; */
@@ -127,24 +138,34 @@ input[type="checkbox"]{
     /* font-weight:700; */
 }
 #arroutput{
-    /* position:relative; */
+    position:relative;
     font-size:1.4rem;
     font-weight:700;
     /* margin-top:-20px; */
     padding:0 20px;
 
-    /* top:-30px;
-    left:40px; */
+    /* top:-30px; */
+    /* left:30px; */
 }
 #date{
-    /* position: relative; */
+    position: relative;
     /* left:30px; */
     /* border-top:1px solid black; */
     /* padding-top: 3px;
     padding-left:8px; */
-    padding:0 20px;
+    /* padding:0 20px; */
+    /* float: right; */
+    /* margin:0 5% 0 20%; */
 
 }
+/* delete{
+    color:rgb(221, 40, 40);
+    position:relative;
+    font-size:1.5rem; */
+    /* top:-50px; */
+    /* right:-200px; */
+    /* float:right; */
+/* } */
 
 #delete{
     /* display: block; */
@@ -152,10 +173,71 @@ input[type="checkbox"]{
     /* left:20px;
     top:-20px; */
     padding:0 20px;
-}
+    float: right;
 
+}
+.edit{
+    /* position: relative; */
+    /* top:-20px;
+    left:10px; */
+     padding:0 20px;
+
+}
 .activeoutput{
     display:none;
     /* visibility: hidden; */
 }
 
+.searchbar{
+    /* position: absolute; */
+    font-size:1.5rem;
+    visibility: visible;
+}
+
+/* .onsearchbar{
+    visibility: visible;
+}
+
+.offsearchbar{
+    visibility: hidden;
+} */
+
+
+/* .searchinput{
+    /* display: none; */
+    /* visibility: hidden; 
+} */
+
+.onsearchinput{
+    /* display: block;
+     */
+     visibility: visible;
+}
+.searchnodate{
+    font-size: 2rem;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50%;
+}
+.searchvalidation{
+    display:none;
+}
+.searchvalid{
+    display: none;
+}
+.searchvalidationresult{
+    position:absolute;
+    display: block;
+    color:red;
+    font-size: .75rem;
+    padding:5px 20px;
+}
+.searchvalidationempty{
+    position:absolute;
+    display: block;
+    color:red;
+    font-size: .75rem;
+    padding:5px 20px;
+}

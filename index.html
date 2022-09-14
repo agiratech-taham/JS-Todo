@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>test todo</title>
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
@@ -46,6 +46,18 @@
                         </ul>
                     </div>
                 </div>
+                <div class="searchbar row mt-2">
+                    <div class="col-1" id="searchicon">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                    <div class="searchdiv col-8">
+                        <input type="text" id="searchinput" class="searchinput" placeholder="search..."><i
+                            class="fa-sharp fa-solid fa-square-xmark" id="crossicon"></i>
+                    </div>
+                    <div>
+                        <span class="searchvalidation" id="searchvalidation">please enter valid data</span>
+                    </div>
+                </div>
             </div>
             <div class="contentdisplay  mt-4">
                 <div class="contenthead">
@@ -62,8 +74,6 @@
 
         </div>
     </div>
-
-    <!-- JavaScript -->
 
     <script>
 
@@ -102,6 +112,25 @@
             filter.className = "filternone";
         }
 
+        let seachicon = document.getElementById("searchicon");
+        let searchinput = document.getElementById("searchinput");
+        let crossicon = document.getElementById("crossicon");
+
+        document.getElementById("searchicon").addEventListener("click", () => {
+            searchicon.style.display = "none";
+            searchinput.style.display = "block";
+            crossicon.style.display = "block"
+        })
+
+        let searchvalidation = document.getElementById("searchvalidation");
+
+        document.getElementById("crossicon").addEventListener("click", () => {
+            seachicon.style.display = "block";
+            searchinput.style.display = "none";
+            crossicon.style.display = "none";
+            searchvalidation.className="searchvalid"
+        })
+
 
         let input = document.getElementById("title");
         let display = document.getElementById("output");
@@ -120,8 +149,13 @@
 
         function add() {
 
+
             listItem = document.createElement("li");
             listItem.className = "arrayoutput";
+
+            create = document.createElement("span");
+            create.id = "arrayoutput";
+            create.className = "spanarrayoutput"
 
             createcheckbox = document.createElement("input");
             createcheckbox.type = "checkbox";
@@ -137,23 +171,27 @@
 
             deleteicon = document.createElement("i");
             deleteicon.id = "delete";
-            deleteicon.className = "delete";          
+            deleteicon.className = "delete";
+
+            editicon = document.createElement("i");
+            editicon.id = "edit";
+            editicon.className = "edit";
 
 
             let dates = new Date();
             let day = dates.getDate();
             let months = dates.getMonth();
+            let originalmonth = Number(months + 1);
             let year = dates.getFullYear();
 
-            let requireddate = "created on " + day + "-" + months + "-" + year;
+            let requireddate = "created by " + day + "-" + originalmonth + "-" + year;
 
             k++;
-           console.log("k++",k++);
+
             let reg = /^[0-9]/;
 
             let regular = input.value;
             let checkreg = reg.test(regular)
-            console.log("checkreg",checkreg)
 
             if (checkreg) {
                 input.classList = "formvalidation"
@@ -166,6 +204,9 @@
                     "delete": `<button id="del">
                     <i class="fa-solid fa-trash"></i>
                     </button>`,
+                    "edit": `<button id="edi">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                        </button>`
                 }
 
                 arr.push(inputs);
@@ -178,10 +219,11 @@
                 deleteicon.innerHTML = i.delete;
 
 
-                listItem.appendChild(createcheckbox);
-                listItem.appendChild(arroutput);
-                listItem.appendChild(date);
-                listItem.appendChild(deleteicon);
+                create.appendChild(createcheckbox);
+                create.appendChild(arroutput);
+                create.appendChild(date);
+                create.appendChild(deleteicon);
+                listItem.appendChild(create);
                 display.appendChild(listItem);
 
             }
@@ -191,7 +233,6 @@
             for (let i = 0; i < remove.length; i++) {
                 remove[i].onclick = function () {
                     var div = this.parentElement;
-                    console.log("del values",div)
                     div.style.display = "none";
                     arr.splice(i, 1);
 
@@ -200,28 +241,29 @@
 
         }
 
-        // let activeoutput = document.getElementById("active");
+        let temp = arr;
+
         let filteractive = "";
+        // let filtersearch = '';
 
         document.getElementById("active").addEventListener("click", () => {
-            filteractive = arr.filter((item => item.check.checked === false));
+            filteractive = temp.filter((item => item.check.checked === false));
             // console.log(filteractive);
             enter(filteractive);
         })
 
         let filtercompleted = "";
         document.getElementById("completed").addEventListener("click", () => {
-            filtercompleted = arr.filter((item) => item.check.checked === true);
+            filtercompleted = temp.filter((item) => item.check.checked === true);
             enter(filtercompleted);
         })
 
         let filterall = "";
         document.getElementById("all").addEventListener("click", () => {
 
-            filterall = arr.filter((item) => item.check.checked == true || item.check.checked == false);
+            filterall = temp.filter((item) => item.check.checked == true || item.check.checked == false);
             enter(filterall);
         })
-
 
         function enter(a) {
 
@@ -231,7 +273,7 @@
                 display.removeChild(display.firstChild);
             }
 
-            // activelength = filteractive.length;
+
 
             for (let j = 0; j < a.length; j++) {
 
@@ -239,6 +281,7 @@
 
                 create = document.createElement("span");
                 create.id = "arrayoutput";
+                create.className = "spanarrayoutput"
 
                 createcheckbox = document.createElement("input");
                 createcheckbox.type = "checkbox";
@@ -264,11 +307,8 @@
 
                 i = a[j];
                 if (i.check.checked === false) {
-                    // createcheckbox.checked="false"
-                    // console.log("hello")
                 } else {
                     createcheckbox.checked = "true";
-                    // console.log("what")
                 }
                 arroutput.innerHTML = i.name;
                 date.innerHTML = i.date;
@@ -287,6 +327,24 @@
             }
 
 
+            let checkchecking = document.getElementsByClassName("checkbox");
+
+            for (let i = 0; i < checkchecking.length; i++) {
+                checkchecking[i].addEventListener("click", () => {
+                    let checkid = a[i].id;
+                    let checkchange = a.findIndex((item) => item.id === checkid);
+                    if (a[checkchange].check.checked) {
+                        a[checkchange].check.checked = false;
+                        a.splice(checkchange, 1);
+                        enter(a);
+                    } else {
+                        a[checkchange].check.checked = true;
+                        a.splice(checkchange, 1);
+                        enter(a);
+                    }
+                })
+            }
+
 
             let remove = document.getElementsByClassName('delete');
 
@@ -294,14 +352,13 @@
                 remove[i].onclick = function () {
                     var div = this.parentElement;
                     div.style.display = "none";
-                    arr.splice(i - 1, 1);
-
+                    arr.splice(i - 2, 1);
                 }
             }
 
         }
 
-
+        
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
